@@ -1,22 +1,18 @@
-# Dra. Hianka Freire — Landing Page
+# Dra. Hianka Freire — Landing Page minimalista / luxo
 
-Site estático pronto para GitHub Pages.
+Versão reformulada: grafite profundo, marfim e dourado suave; fotos completas e compactas; nova apresentação da profissional e logo dourada.
 
-## Conteúdo
-- Apresentação da Dra. Hianka Freire
-- Áreas de atendimento: Odontologia, Harmonização Facial e Ortodontia
-- Vídeo de apresentação sobre Botox
-- Galeria de resultados com visualização ampliada
-- Formulário de solicitação de agendamento pelo WhatsApp
-- Cidades de atendimento: Arcoverde, Venturosa e Tupanatinga
+## Publicar no GitHub Pages
+1. Extraia o ZIP.
+2. Abra a pasta `hianka-freire-site`.
+3. Envie o conteúdo dela (`index.html`, `style.css`, `script.js`, `README.md` e `assets/`) para a raiz do repositório.
+4. Em **Settings → Pages**, use **Deploy from a branch**, `main`, `/ (root)`.
 
-## Como publicar no GitHub Pages
-1. Envie todos os arquivos para um repositório no GitHub.
-2. Vá em **Settings > Pages**.
-3. Em **Deploy from a branch**, escolha a branch principal e a pasta `/root`.
-4. Salve e aguarde o link do GitHub Pages.
+## Agendamento
+O formulário envia uma solicitação pelo WhatsApp (87) 99169-1014, indicando nome, telefone, atendimento, cidade, data opcional e período (apenas manhã ou tarde). Não há reserva automática: a equipe confirma a disponibilidade.
 
-## Observações
-- O formulário não salva dados em servidor. Ele apenas abre o WhatsApp com a mensagem pronta.
-- Confirme sempre a autorização de uso de imagem dos pacientes antes de publicar.
-- Período de preferência disponível no formulário: **manhã** e **tarde**.
+## Divulgação responsável
+Obtenha autorização para uso das fotos clínicas dos pacientes antes da publicação e confirme as informações dos serviços com a profissional.
+
+## Identidade visual atualizada
+Paleta azul-petróleo e branco suave, com dourado na marca. Fontes Outfit (títulos de interface), DM Sans (textos) e Cormorant Garamond (títulos editoriais). Mantido formulário de agendamento com os períodos manhã e tarde e botão de WhatsApp que se oculta no rodapé.

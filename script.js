@@ -164,3 +164,15 @@ form?.addEventListener('submit', event => {
 });
 
 $('#year').textContent = String(new Date().getFullYear());
+
+
+const floatingWhatsApp = document.querySelector('.floating-whatsapp');
+const footer = document.querySelector('.footer');
+if (floatingWhatsApp && footer && "IntersectionObserver" in window) {
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      floatingWhatsApp.classList.toggle('is-hidden', entry.isIntersecting);
+    });
+  }, { threshold: 0.08 });
+  footerObserver.observe(footer);
+}
