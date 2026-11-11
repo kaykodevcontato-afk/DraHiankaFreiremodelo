@@ -1,0 +1,16 @@
+COLOQUE AQUI AS IMAGENS E O VÍDEO DO SITE ORIGINAL.
+
+Arquivos referenciados no index.html:
+- favicon.svg
+- logo-hianka-dourado.svg
+- dra-hianka-nova.webp
+- dra-hianka.webp
+- botox-video-poster.jpg
+- video-botox.mp4
+- ortodontia.webp
+- estetica-labial.webp
+- botox-expressoes.webp
+- harmonizacao-facial.webp
+
+Esses arquivos de mídia NÃO foram anexados nesta conversa.
+Para que o site mostre fotos, logo e vídeo, copie-os da pasta assets/ do seu projeto atual.

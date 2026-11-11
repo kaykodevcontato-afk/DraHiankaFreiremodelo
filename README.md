@@ -1,18 +1,48 @@
-# Dra. Hianka Freire — Landing Page minimalista / luxo
+# Dra. Hianka Freire — site organizado para GitHub Pages
 
-Versão reformulada: grafite profundo, marfim e dourado suave; fotos completas e compactas; nova apresentação da profissional e logo dourada.
+Os arquivos foram **reformatados e comentados para facilitar a edição**, mantendo as seções, os estilos na ordem original e as funções de menu, galeria, vídeo e agendamento via WhatsApp.
 
-## Publicar no GitHub Pages
-1. Extraia o ZIP.
-2. Abra a pasta `hianka-freire-site`.
-3. Envie o conteúdo dela (`index.html`, `style.css`, `script.js`, `README.md` e `assets/`) para a raiz do repositório.
-4. Em **Settings → Pages**, use **Deploy from a branch**, `main`, `/ (root)`.
+## Estrutura
 
-## Agendamento
-O formulário envia uma solicitação pelo WhatsApp (87) 99169-1014, indicando nome, telefone, atendimento, cidade, data opcional e período (apenas manhã ou tarde). Não há reserva automática: a equipe confirma a disponibilidade.
+```text
+index.html       Página, textos, fotos, links, formulário e seções
+style.css        Aparência, fontes, cores, molduras e ajustes para celular
+script.js        Menu, vídeo, filtros e envio do formulário por WhatsApp
+assets/          Imagens, logo e vídeo — copie da versão original
+README.md        Estas instruções
+```
 
-## Divulgação responsável
-Obtenha autorização para uso das fotos clínicas dos pacientes antes da publicação e confirme as informações dos serviços com a profissional.
+## O que editar e onde
 
-## Identidade visual atualizada
-Paleta azul-petróleo e branco suave, com dourado na marca. Fontes Outfit (títulos de interface), DM Sans (textos) e Cormorant Garamond (títulos editoriais). Mantido formulário de agendamento com os períodos manhã e tarde e botão de WhatsApp que se oculta no rodapé.
+| Quero alterar | Arquivo | Onde encontrar |
+| --- | --- | --- |
+| Nome, profissão, CRO e textos | `index.html` | Procure `HIANKA FREIRE`, `CRO-PE` ou os comentários `01`, `02`... |
+| Foto da capa | `index.html` | `assets/dra-hianka-nova.webp` |
+| Foto do Sobre | `index.html` | `assets/dra-hianka.webp` |
+| Serviços | `index.html` | `03 — ESPECIALIDADES` |
+| Fotos da galeria | `index.html` | `05 — GALERIA` e atributos `data-image` |
+| Número visível e links do WhatsApp | `index.html` | Procure `5587991691014` |
+| Número que recebe os formulários | `script.js` | `WA_NUMBER` no início |
+| Instagram Dev Kayko | `index.html` | Procure `alien_okyak` |
+| Cores gerais | `style.css` | `:root`, no início; confira substituições em `Edição 3` |
+| Moldura da foto inicial | `style.css` | `hero-photo-wrap` e `hero-photo-surface` (correção final) |
+| Formulário | `index.html` | `07 — FORMULÁRIO` |
+| Mensagem enviada no formulário | `script.js` | `const message = [` |
+
+## Publicar no GitHub
+
+1. Abra seu repositório no GitHub.
+2. Envie os arquivos **`index.html`, `style.css`, `script.js` e `README.md`** para a raiz do repositório.
+3. **Muito importante:** preserve a pasta `assets/` original com todos os arquivos de imagem, logo e vídeo listados em `assets/LEIA-ME.txt`. Os arquivos reais não foram anexados aqui e não estão no ZIP.
+4. Vá em **Settings → Pages → Deploy from a branch**; selecione `main` e `/ (root)`.
+5. Ao alterar CSS ou JavaScript, aumente o parâmetro `?v=3` nos links do `<head>` de `index.html` para limpar o cache mais facilmente.
+
+## Como editar diretamente no GitHub
+
+Abra o arquivo desejado, clique em **Edit (ícone do lápis)**, altere o texto ou estilo e clique em **Commit changes**. Não altere `id`, `class`, `data-*` ou caminhos de `assets/` sem ajustar as referências correspondentes.
+
+## Observações
+
+- O formulário **não cria consultas automaticamente**: ele abre o WhatsApp com os dados preenchidos para a equipe confirmar o atendimento.
+- O site não tem backend nem banco de dados.
+- Confirme com a profissional as informações publicadas e as autorizações para uso dos registros clínicos.

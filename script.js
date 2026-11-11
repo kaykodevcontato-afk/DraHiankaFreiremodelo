@@ -1,9 +1,17 @@
+/*
+ * DRA. HIANKA FREIRE — INTERATIVIDADE
+ * Para trocar o número que recebe o formulário, altere WA_NUMBER abaixo.
+ * Os links de WhatsApp exibidos na página ficam no index.html.
+ * Não remova os IDs do HTML: são usados por este script.
+ */
+
 'use strict';
 
 const WA_NUMBER = '5587991691014';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
 
+// 01 — Menu responsivo
 const menuButton = $('.menu-toggle');
 const mobileNav = $('#mobile-nav');
 function closeMenu() {
@@ -26,6 +34,7 @@ if (menuButton && mobileNav) {
   });
 }
 
+// 02 — Filtros da galeria
 $$('[data-filter]').forEach(button => {
   button.addEventListener('click', () => {
     const filter = button.dataset.filter;
@@ -40,6 +49,7 @@ $$('[data-filter]').forEach(button => {
   });
 });
 
+// 03 — Janelas de vídeo e imagem
 function configureDialog(dialog, closeButton, onClose) {
   if (!dialog || !closeButton) return;
   closeButton.addEventListener('click', () => dialog.close());
@@ -73,6 +83,7 @@ $$('.gallery-card').forEach(card => {
 });
 configureDialog(imageDialog, $('#close-image'));
 
+// 04 — Agendamento: data mínima e máscara do telefone
 const dateField = $('#patient-date');
 const today = new Date();
 const localDate = [today.getFullYear(), String(today.getMonth() + 1).padStart(2, '0'), String(today.getDate()).padStart(2, '0')].join('-');
@@ -99,6 +110,7 @@ if (phoneField) {
   });
 }
 
+// 05 — Selecionar serviço e rolar até formulário
 $$('[data-service-link]').forEach(link => {
   link.addEventListener('click', () => {
     const service = $('#patient-service');
@@ -106,6 +118,7 @@ $$('[data-service-link]').forEach(link => {
   });
 });
 
+// 06 — Montagem da mensagem e envio via WhatsApp
 const form = $('#booking-form');
 const feedback = $('#form-feedback');
 form?.addEventListener('submit', event => {
@@ -163,9 +176,11 @@ form?.addEventListener('submit', event => {
   feedback.textContent = 'Solicitação pronta. Finalize o envio na conversa do WhatsApp aberta em seguida.';
 });
 
+// 07 — Ano automático no rodapé
 $('#year').textContent = String(new Date().getFullYear());
 
 
+// 08 — Esconde botão flutuante ao chegar ao rodapé
 const floatingWhatsApp = document.querySelector('.floating-whatsapp');
 const footer = document.querySelector('.footer');
 if (floatingWhatsApp && footer && "IntersectionObserver" in window) {
