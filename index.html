@@ -16,8 +16,8 @@
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Outfit:wght@400;500;600;700;800&amp;family=Cormorant+Garamond:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-  <link href="style.css?v=3" rel="stylesheet"/>
-  <script defer="" src="script.js?v=4">
+  <link href="style.css?v=5" rel="stylesheet"/>
+  <script defer="" src="script.js?v=5">
   </script>
  </head>
  <body>
@@ -612,7 +612,27 @@
         <span>
          Data desejada
         </span>
-        <input id="patient-date" name="data" type="date"/>
+        <!-- Calendário personalizado; o valor real fica no campo oculto. -->
+        <input id="patient-date" name="data" type="hidden"/>
+        <div class="date-picker" id="custom-date-picker">
+         <button class="date-trigger" type="button" id="date-trigger" aria-haspopup="dialog" aria-controls="date-calendar" aria-expanded="false">
+          <span id="date-trigger-label">Escolher uma data</span>
+          <svg aria-hidden="true"><use href="#i-calendar"></use></svg>
+         </button>
+         <div class="date-calendar" id="date-calendar" role="dialog" aria-label="Escolher data para avaliação" hidden>
+          <div class="calendar-heading">
+           <button type="button" class="calendar-nav" id="calendar-prev" aria-label="Mês anterior">‹</button>
+           <strong id="calendar-month" aria-live="polite"></strong>
+           <button type="button" class="calendar-nav" id="calendar-next" aria-label="Próximo mês">›</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span></div>
+          <div class="calendar-days" id="calendar-days" role="grid" aria-label="Dias do mês"></div>
+          <div class="calendar-bottom">
+           <button type="button" id="calendar-clear">Limpar</button>
+           <button type="button" id="calendar-today">Hoje</button>
+          </div>
+         </div>
+        </div>
        </label>
        <label class="field" for="patient-period">
         <span>

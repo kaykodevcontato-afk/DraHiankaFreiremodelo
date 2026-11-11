@@ -110,6 +110,98 @@ if (phoneField) {
   });
 }
 
+// 04B — Calendário visual na identidade azul-petróleo e dourado
+// Para alterar cores, veja "CALENDÁRIO PERSONALIZADO" no final do style.css.
+const datePicker = $('#custom-date-picker');
+const dateTrigger = $('#date-trigger');
+const dateCalendar = $('#date-calendar');
+const dateMonth = $('#calendar-month');
+const dateDays = $('#calendar-days');
+const dateLabel = $('#date-trigger-label');
+const calendarPrev = $('#calendar-prev');
+const calendarNext = $('#calendar-next');
+const calendarClear = $('#calendar-clear');
+const calendarToday = $('#calendar-today');
+let visibleMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+const ptMonth = new Intl.DateTimeFormat('pt-BR', { month: 'long', year: 'numeric' });
+const dateIso = d => [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-');
+
+function renderCalendar() {
+  if (!dateCalendar) return;
+  dateMonth.textContent = ptMonth.format(visibleMonth);
+  dateDays.replaceChildren();
+  const year = visibleMonth.getFullYear();
+  const month = visibleMonth.getMonth();
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  for (let i = 0; i < firstWeekday; i++) {
+    const empty = document.createElement('span');
+    empty.className = 'calendar-empty';
+    dateDays.appendChild(empty);
+  }
+  for (let day = 1; day <= daysInMonth; day++) {
+    const value = dateIso(new Date(year, month, day));
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'calendar-day';
+    button.textContent = String(day);
+    button.setAttribute('aria-label', `${day} de ${ptMonth.format(visibleMonth)}`);
+    button.disabled = value < localDate;
+    if (value === localDate) button.classList.add('is-today');
+    if (value === dateField.value) {
+      button.classList.add('is-selected');
+      button.setAttribute('aria-pressed', 'true');
+    }
+    button.addEventListener('click', () => {
+      dateField.value = value;
+      dateLabel.textContent = value.split('-').reverse().join('/');
+      closeCalendar();
+      dateTrigger.focus();
+    });
+    dateDays.appendChild(button);
+  }
+  calendarPrev.disabled = new Date(year, month, 1) <= new Date(today.getFullYear(), today.getMonth(), 1);
+}
+function closeCalendar() {
+  dateCalendar.hidden = true;
+  dateTrigger.setAttribute('aria-expanded', 'false');
+}
+if (datePicker && dateField) {
+  dateTrigger.addEventListener('click', () => {
+    const shouldOpen = dateCalendar.hidden;
+    dateCalendar.hidden = !shouldOpen;
+    dateTrigger.setAttribute('aria-expanded', String(shouldOpen));
+    if (shouldOpen) renderCalendar();
+  });
+  calendarPrev.addEventListener('click', () => {
+    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  calendarNext.addEventListener('click', () => {
+    visibleMonth = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 1);
+    renderCalendar();
+  });
+  calendarToday.addEventListener('click', () => {
+    dateField.value = localDate;
+    dateLabel.textContent = localDate.split('-').reverse().join('/');
+    closeCalendar();
+  });
+  calendarClear.addEventListener('click', () => {
+    dateField.value = '';
+    dateLabel.textContent = 'Escolher uma data';
+    closeCalendar();
+  });
+  document.addEventListener('click', event => {
+    if (!datePicker.contains(event.target)) closeCalendar();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !dateCalendar.hidden) {
+      closeCalendar();
+      dateTrigger.focus();
+    }
+  });
+}
+
 // 05 — Selecionar serviço e rolar até formulário
 $$('[data-service-link]').forEach(link => {
   link.addEventListener('click', () => {
@@ -170,29 +262,34 @@ form?.addEventListener('submit', event => {
 
   const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
 
-  // Abre o WhatsApp em outra aba, sem navegar para fora do site.
-  // Não use window.location.href aqui: isso fecha/substitui a página da Dra.
-  const whatsappLink = document.createElement('a');
-  whatsappLink.href = url;
-  whatsappLink.target = '_blank';
-  whatsappLink.rel = 'noopener noreferrer';
-  document.body.appendChild(whatsappLink);
-  whatsappLink.click();
-  whatsappLink.remove();
+  // Abre uma aba nova a partir do clique real do usuário.
+  // NUNCA usar window.location, location.assign ou form.submit aqui,
+  // pois essas alternativas substituem o site da profissional.
+  let newTab = null;
+  try {
+    newTab = window.open('about:blank', '_blank');
+    if (newTab) {
+      newTab.opener = null; // Isola a nova aba da página original.
+      newTab.location.replace(url);
+    }
+  } catch (error) {
+    // Bloqueio de pop-up: o usuário pode usar o link alternativo abaixo.
+  }
 
-  // Link alternativo para o caso de o navegador bloquear a nova aba.
-  // Usar APIs do DOM evita inserir dados do paciente como HTML.
+  // Link manual confiável: um clique explícito abre nova aba sem sair do site.
   if (feedback) {
     feedback.hidden = false;
-    feedback.textContent = 'Solicitação preparada. Envie a mensagem na aba do WhatsApp. Se ela não abriu, ';
+    feedback.textContent = newTab
+      ? 'WhatsApp aberto em uma nova aba. Confirme o envio da mensagem por lá. '
+      : 'O navegador impediu a abertura automática. ';
     const fallbackLink = document.createElement('a');
     fallbackLink.href = url;
     fallbackLink.target = '_blank';
     fallbackLink.rel = 'noopener noreferrer';
-    fallbackLink.textContent = 'clique aqui para abrir o WhatsApp';
-    fallbackLink.style.textDecoration = 'underline';
+    fallbackLink.textContent = newTab ? 'Abrir o WhatsApp novamente' : 'Abrir WhatsApp em nova aba';
+    fallbackLink.className = 'whatsapp-fallback-link';
     feedback.appendChild(fallbackLink);
-    feedback.appendChild(document.createTextNode('. O site permanece aberto.'));
+    feedback.appendChild(document.createTextNode(' — este site permanece aberto.'));
   }
 });
 

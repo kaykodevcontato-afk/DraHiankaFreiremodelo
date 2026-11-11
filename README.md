@@ -50,3 +50,13 @@ Abra o arquivo desejado, clique em **Edit (ícone do lápis)**, altere o texto o
 ## Correção do formulário (versão 4)
 
 O formulário de avaliação abre o WhatsApp em **nova aba** e mantém a landing page aberta. Se o navegador bloquear a aba, aparece um link para abrir manualmente. Após a publicação, o `index.html` usa `script.js?v=4` para evitar a versão antiga em cache. O envio da mensagem ainda precisa ser confirmado pelo visitante no WhatsApp.
+
+
+## Correção WhatsApp / calendário (versão 5)
+- O agendamento tenta abrir `wa.me` em **nova aba**, sem redirecionar `index.html`.
+- Caso o navegador bloqueie a nova aba, aparece um **link manual** para abrir WhatsApp, também em nova aba.
+- O clique no link é o método mais compatível com bloqueadores de pop-up.
+- O calendário de data foi substituído por um calendário personalizado em azul-petróleo e dourado, com dias passados desativados.
+- Edite as cores na seção `CALENDÁRIO PERSONALIZADO` do `style.css`.
+- Os arquivos CSS e JS usam `?v=5` para evitar cache antigo.
+- Em celulares, o sistema pode alternar para o aplicativo WhatsApp; a aba do site continua existindo no navegador.

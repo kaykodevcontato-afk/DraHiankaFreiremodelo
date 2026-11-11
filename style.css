@@ -1473,3 +1473,31 @@ body {
     bottom:10px
   }
 }
+
+
+/* ============================================================
+   CALENDÁRIO PERSONALIZADO — EDITE AQUI AS CORES DO CALENDÁRIO
+   ============================================================ */
+.date-picker{position:relative;width:100%}
+.date-trigger{width:100%;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 13px;border:1px solid #dae7ea;border-radius:8px;background:#fbfdfe;color:var(--ink);font:500 13px var(--sans);text-align:left}
+.date-trigger svg{width:19px;height:19px;color:var(--forest)}
+.date-trigger:hover,.date-trigger[aria-expanded="true"]{border-color:var(--gold);box-shadow:0 0 0 2px rgba(197,165,108,.13)}
+.date-calendar[hidden]{display:none!important}
+.date-calendar{position:absolute;z-index:30;top:calc(100% + 9px);left:0;width:min(330px,calc(100vw - 54px));padding:17px;background:#fff;border:1px solid #dbe7ea;border-radius:15px;box-shadow:0 16px 45px rgba(14,75,89,.19);color:var(--ink)}
+.calendar-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:15px}
+.calendar-heading strong{text-transform:capitalize;color:var(--forest);font:700 15px var(--display)}
+.calendar-nav{display:grid;place-items:center;width:33px;height:33px;padding:0;border:1px solid #dbe7ea;border-radius:8px;background:#edf5f7;color:var(--forest);font-size:25px;line-height:1}
+.calendar-nav:disabled{opacity:.35;cursor:not-allowed}
+.calendar-weekdays,.calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.calendar-weekdays{margin-bottom:7px}
+.calendar-weekdays span{font:700 10px var(--display);color:#66828a}
+.calendar-day{aspect-ratio:1;min-height:32px;padding:0;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);font:600 12px var(--display)}
+.calendar-day:hover:not(:disabled){background:#e6f1f4;border-color:#b7d5de}
+.calendar-day.is-today{border-color:var(--gold);color:var(--forest)}
+.calendar-day.is-selected,.calendar-day.is-selected:hover{background:var(--forest);color:white;border-color:var(--forest)}
+.calendar-day:disabled{color:#b2c0c4;cursor:not-allowed}
+.calendar-bottom{display:flex;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.calendar-bottom button{padding:6px 10px;border:0;border-radius:6px;background:#edf5f7;color:var(--forest);font:700 11px var(--display)}
+.calendar-bottom button:hover{background:#e7d0a6}
+.whatsapp-fallback-link{display:inline-block;margin-left:4px;color:#0e6577;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:550px){.date-calendar{left:0;width:min(330px,calc(100vw - 65px))}}
