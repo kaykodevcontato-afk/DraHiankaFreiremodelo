@@ -169,11 +169,31 @@ form?.addEventListener('submit', event => {
   ].join('\n');
 
   const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-  const opened = window.open(url, '_blank', 'noopener,noreferrer');
-  if (!opened) window.location.href = url;
 
-  feedback.hidden = false;
-  feedback.textContent = 'Solicitação pronta. Finalize o envio na conversa do WhatsApp aberta em seguida.';
+  // Abre o WhatsApp em outra aba, sem navegar para fora do site.
+  // Não use window.location.href aqui: isso fecha/substitui a página da Dra.
+  const whatsappLink = document.createElement('a');
+  whatsappLink.href = url;
+  whatsappLink.target = '_blank';
+  whatsappLink.rel = 'noopener noreferrer';
+  document.body.appendChild(whatsappLink);
+  whatsappLink.click();
+  whatsappLink.remove();
+
+  // Link alternativo para o caso de o navegador bloquear a nova aba.
+  // Usar APIs do DOM evita inserir dados do paciente como HTML.
+  if (feedback) {
+    feedback.hidden = false;
+    feedback.textContent = 'Solicitação preparada. Envie a mensagem na aba do WhatsApp. Se ela não abriu, ';
+    const fallbackLink = document.createElement('a');
+    fallbackLink.href = url;
+    fallbackLink.target = '_blank';
+    fallbackLink.rel = 'noopener noreferrer';
+    fallbackLink.textContent = 'clique aqui para abrir o WhatsApp';
+    fallbackLink.style.textDecoration = 'underline';
+    feedback.appendChild(fallbackLink);
+    feedback.appendChild(document.createTextNode('. O site permanece aberto.'));
+  }
 });
 
 // 07 — Ano automático no rodapé

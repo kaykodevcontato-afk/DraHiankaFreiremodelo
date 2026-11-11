@@ -46,3 +46,7 @@ Abra o arquivo desejado, clique em **Edit (ícone do lápis)**, altere o texto o
 - O formulário **não cria consultas automaticamente**: ele abre o WhatsApp com os dados preenchidos para a equipe confirmar o atendimento.
 - O site não tem backend nem banco de dados.
 - Confirme com a profissional as informações publicadas e as autorizações para uso dos registros clínicos.
+
+## Correção do formulário (versão 4)
+
+O formulário de avaliação abre o WhatsApp em **nova aba** e mantém a landing page aberta. Se o navegador bloquear a aba, aparece um link para abrir manualmente. Após a publicação, o `index.html` usa `script.js?v=4` para evitar a versão antiga em cache. O envio da mensagem ainda precisa ser confirmado pelo visitante no WhatsApp.
